@@ -6,7 +6,11 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     bc \
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
+
+# Python packages required by skill scripts
+RUN pip3 install --no-cache-dir --break-system-packages requests
 
 # Fix npm global prefix so the `node` user can install global packages
 # without permission errors (avoids the /root vs /home/node mismatch).
