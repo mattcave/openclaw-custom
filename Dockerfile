@@ -40,3 +40,8 @@ RUN npm install -g clawhub
 # Drop back to root only long enough for entrypoint needs; the base image's
 # own entrypoint/tini setup already handles dropping privileges correctly,
 # so we don't override USER again here — inherits whatever the base image sets.
+
+USER root
+
+ENTRYPOINT ["openclaw"]
+CMD ["gateway", "--allow-unconfigured"]
