@@ -19,6 +19,8 @@ RUN printf '#!/usr/bin/env python3\nimport sys\nfrom faster_whisper import Whisp
     > /usr/local/bin/faster-whisper-transcribe && \
     chmod +x /usr/local/bin/faster-whisper-transcribe
     
+ENV OPENCLAW_NO_AUTO_UPDATE=1
+
 # Fix npm global prefix so the `node` user can install global packages
 # without permission errors (avoids the /root vs /home/node mismatch).
 # Using an env var instead of `npm config set` avoids ending up with a
