@@ -12,6 +12,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Python packages required by skill scripts
 RUN pip3 install --no-cache-dir --break-system-packages requests
 
+# Local audio transcription (faster-whisper)
+RUN pip3 install --no-cache-dir --break-system-packages "faster-whisper" "numpy<2.0"
+
+RUN printf '#!/usr/bin/env python3\nimport sys\nfrom faster_whisper import WhisperModel\nmodel = WhisperModel("base", device="cpu", compute_type="int8")\nsegments, _ = model.transcribe(sys.argv[1])\nprint("".join(s.text for s in segments).strip())\n' \
+    > /usr/local/bin/faster-whisper-transcribe && \
+    chmod +x /usr/local/bin/faster-whisper-transcribe
+    
 # Fix npm global prefix so the `node` user can install global packages
 # without permission errors (avoids the /root vs /home/node mismatch).
 # Using an env var instead of `npm config set` avoids ending up with a
