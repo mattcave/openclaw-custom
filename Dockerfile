@@ -37,11 +37,5 @@ RUN npm install -g openclaw@2026.7.1-2
 # Install clawhub globally as the node user, using the corrected prefix
 RUN npm install -g clawhub
 
-# Drop back to root only long enough for entrypoint needs; the base image's
-# own entrypoint/tini setup already handles dropping privileges correctly,
-# so we don't override USER again here — inherits whatever the base image sets.
-
-USER root
-
 ENTRYPOINT ["openclaw"]
 CMD ["gateway"]
