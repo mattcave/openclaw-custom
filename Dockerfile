@@ -44,4 +44,4 @@ RUN npm install -g clawhub
 USER root
 
 ENTRYPOINT ["openclaw"]
-CMD ["gateway", "--allow-unconfigured"]
+CMD ["gateway"]
