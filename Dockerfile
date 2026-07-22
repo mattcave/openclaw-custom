@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
+npm install -g openclaw@2026.7.1-2
+
 # Python packages required by skill scripts
 RUN pip3 install --no-cache-dir --break-system-packages requests
 
@@ -28,6 +30,9 @@ ENV PATH="/home/node/.npm-global/bin:${PATH}"
 RUN mkdir -p /home/node/.npm-global && chown -R node:node /home/node/.npm-global
 
 USER node
+
+# Install pinned version of openclaw temporarily
+RUN npm install -g openclaw@2026.7.1-2
 
 # Install clawhub globally as the node user, using the corrected prefix
 RUN npm install -g clawhub
